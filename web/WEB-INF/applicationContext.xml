@@ -7,7 +7,6 @@
                             http://mybatis.org/schema/mybatis-spring
                             http://mybatis.org/schema/mybatis-spring.xsd">
 
-    <!-- 뷰 리졸버 빈등록 -->
     <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
         <property name="jdbcUrl" value="jdbc:mysql://localhost:3308/springboard"/>
@@ -15,19 +14,15 @@
         <property name="password" value="koreait"/>
     </bean>
 
-    <!--
-    new HikariDataSource(주소값);
-    -->
     <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
         <constructor-arg ref="hikariConfig"/>
     </bean>
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="mapperLocations" value="classpath:/mappers/*.xml"/>
-        <property name="typeAliasesPackage" value="org.example.springboard"/>
+        <property name="mapperLocations" value="classpath:/mappers/*.xml" />
+        <property name="typeAliasesPackage" value="org.example.springboard" />
     </bean>
 
-    <mybatis-spring:scan base-package="org.example.springboard"/>
-
+   <mybatis-spring:scan base-package="org.example.springboard" />
 </beans>
