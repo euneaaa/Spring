@@ -12,7 +12,12 @@ public class BoardService {
     private BoardMapper mapper;
 
     public int insBoard(BoardEntity entity) {
-        return mapper.insBoard(entity);
+        try{
+            return mapper.insBoard(entity);
+        }
+        catch (Exception e){e.printStackTrace();}
+        return 0;
+
     }
     public List<BoardEntity> selBoardList() {
         return mapper.selBoardList();
@@ -33,6 +38,10 @@ public class BoardService {
     }
 
     public int delBoard(BoardEntity entity) {
-        return mapper.delBoard(entity);
+        try {
+            return mapper.delBoard(entity);
+        }catch (Exception e){
+            e.printStackTrace();
+        }return 0;
     }
 }

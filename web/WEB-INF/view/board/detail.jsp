@@ -8,10 +8,13 @@
     <title><c:out value="${requestScope.data.title}"/></title>
 </head>
 <body>
+
     <div id="btnContainer" data-iboard="${requestScope.data.iboard}">
         <a href="/board/mod?iboard=${requestScope.data.iboard}"><button>수정</button></a>
         <button id="btnDel">삭제</button>
+        <a href="/board/list">목록으로 돌아가기</a>
     </div>
+    <div>${requestScope.msg}</div>
     <div>번호 : ${requestScope.data.iboard}</div>
     <div>제목 : <c:out value="${requestScope.data.title}"/></div>
     <div>조회수 : ${requestScope.data.hits}</div>

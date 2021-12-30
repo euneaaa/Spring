@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.util.List;
 
 @Controller
@@ -28,15 +30,25 @@ public class BoardController {
     public void write() {}
 
     @PostMapping("/write")
-    public String writeProc(BoardEntity entity) {
-        System.out.println(entity);
+    public String writeProc(BoardEntity entity, RedirectAttributes reAttr) {
         int result = service.insBoard(entity);
+        if(result == 0){
+            reAttr.addFlashAttribute("msg", "글 등록에 실패하였습니다.");
+            reAttr.addFlashAttribute("data", entity);
+            return "redirect:/board/write";
+        }
+        //addAttribute=쿼리스트링 생성, addFlashAttribute=request에 담아서 전송. : RedirectAttributes
         return "redirect:/board/list";
     }
 
     @GetMapping("/del")
-    public String delProc(BoardEntity entity) {
+    public String delProc(BoardEntity entity, RedirectAttributes reAttr) {
         int result = service.delBoard(entity);
+        if(result==0){
+            reAttr.addFlashAttribute("msg", "글 삭제에 실패하였습니다.");
+            reAttr.addAttribute("iboard", entity.getIboard());
+            return "redirect:/board/detail";
+        }
         return "redirect:/board/list";
     }
 
